@@ -1,0 +1,159 @@
+body {
+  background-color: rgb(23, 26, 77);
+  color: white;
+}
+
+.Header {
+  background-color: rgb(21, 19, 155);
+  border-radius: 20px;
+  display: flex;
+  margin-left: 10%;
+  margin-right: 10%;
+  width: 80%;
+  min-width: 260px;
+  margin-top: 20px;
+  height: 75px;
+}
+.Header button {
+  color: rgb(255, 255, 255);
+  margin-left: auto;
+  margin-right: 15px;
+  font-family: "ZCOOL QingKe HuangYou", sans-serif;
+  margin-top: 15px;
+  background-color: rgb(21, 19, 155);
+  height: 45px;
+  width: 50px;
+  font-size: 40px;
+  border-radius: 20px;
+  border: 0px;
+  cursor: pointer;
+}
+.Header button:hover {
+  background-color: #0f0d6e;
+  transition: background-color 0.5s ease;
+}
+.Header h1 {
+  margin-left: 15px;
+  font-family: "ZCOOL QingKe HuangYou", sans-serif;
+}
+
+.Card {
+  background-color: white;
+  border-radius: 20px;
+  display: block;
+  position: relative;
+  width: 40%;
+  margin-right: 10%;
+  margin-left: 10%;
+  margin-top: 30px;
+  height: 90px;
+  min-width: 260px;
+  color: black;
+}
+.Card h2 {
+  display: inline;
+  margin-top: 10px;
+  margin-left: 15px;
+  position: absolute;
+}
+.Card p {
+  margin-top: 40px;
+  margin-left: 15px;
+  display: block;
+  position: absolute;
+}
+.Card div {
+  display: inline;
+  right: 10px;
+  position: absolute;
+  margin-top: 5px;
+}
+.Card button {
+  color: rgb(0, 0, 0);
+  font-family: "ZCOOL QingKe HuangYou", sans-serif;
+  margin-top: 10px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  border: 0px;
+  font-size: 20px;
+  margin-left: 5px;
+}
+
+.NewTodo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(21, 19, 155);
+  padding: 20px;
+  border-radius: 20px;
+  width: 400px;
+  z-index: 100;
+  font-family: "ZCOOL QingKe HuangYou", sans-serif;
+}
+.NewTodo .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.NewTodo .form-group {
+  margin-bottom: 10px;
+}
+.NewTodo h2 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+.NewTodo label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 25px;
+}
+.NewTodo input {
+  width: 95%;
+  padding: 5px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  min-height: 30px;
+  max-width: 95%;
+  min-width: 95%;
+  font-size: 20px;
+}
+.NewTodo textarea {
+  width: 95%;
+  padding: 5px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  min-height: 30px;
+  max-width: 95%;
+  min-width: 95%;
+  height: 60px;
+  font-size: 20px;
+}
+.NewTodo .CloseBtn {
+  background-color: rgb(21, 19, 155);
+  color: #ffffff;
+  border: none;
+  padding: 3px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.NewTodo .submit {
+  font-size: 25px;
+  width: 200px;
+  background-color: rgb(23, 26, 77);
+}
+.NewTodo select {
+  height: 30px;
+  border-radius: 5px;
+  color: white;
+  background-color: rgb(21, 19, 155);
+  border-color: rgb(23, 26, 77);
+  padding: 5px;
+}
+.NewTodo .colorLabel {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-size: 25px;
+  margin-right: 10px;
+}/*# sourceMappingURL=index.css.map */

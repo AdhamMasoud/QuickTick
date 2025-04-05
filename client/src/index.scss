@@ -1,0 +1,176 @@
+$primary_color: rgb(23, 26, 77);
+$secondary_color: rgb(21, 19, 155);
+$font_family: "ZCOOL QingKe HuangYou", sans-serif !default;
+
+;body{
+  background-color: $primary_color;
+  color: white;
+}
+
+.Header{
+    background-color: $secondary_color;
+    border-radius: 20px;
+    display: flex;
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 80%;
+    min-width: 260px;
+    margin-top: 20px;
+    height: 75px;
+
+    
+    button{
+        color: rgb(255, 255, 255);
+        margin-left: auto;
+        margin-right: 15px;
+        font-family: $font_family;
+        margin-top: 15px;
+        background-color: $secondary_color;
+        height: 45px;
+        width: 50px;
+        font-size: 40px;
+        border-radius: 20px;
+        border: 0px;
+        cursor: pointer;
+        &:hover {
+          background-color: darken($secondary_color, 10%);
+          transition: background-color 0.5s ease;
+      }
+
+    }
+    h1{
+        margin-left: 15px;
+        font-family: $font_family;
+    }
+}
+.Card{
+    background-color: white;
+    border-radius: 20px;
+    display: block;
+    position: relative;
+    width: 40%;
+    margin-right: 10%;
+    margin-left: 10%;
+    margin-top: 30px;
+    height: 90px;
+    min-width: 260px;
+    color: black;
+    h2{
+        display: inline;
+        margin-top: 10px;
+        margin-left: 15px;
+        position: absolute;
+    }
+    p{
+        margin-top: 40px;
+        margin-left: 15px;
+        display: block;
+        position: absolute;
+    }
+    div{
+        display: inline;
+        right: 10px;
+        position: absolute;
+        margin-top: 5px;
+    }
+    button{
+        color: rgb(0, 0, 0);
+        font-family: $font_family;
+        margin-top: 10px;
+        background-color: #ffffff;
+        border-radius: 15px;
+        border: 0px;
+        font-size: 20px;
+        margin-left: 5px;
+    }
+}
+.NewTodo {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: $secondary_color;
+    padding: 20px;
+    border-radius: 20px;
+    width: 400px;
+    z-index: 100;
+    font-family: $font_family;
+
+    
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 10px;
+  }
+  h2{
+    font-size: 30px;
+    margin-bottom: 10px;
+
+  }
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 25px;
+  }
+  
+  input{
+      width: 95%;
+      padding: 5px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      min-height: 30px;
+      max-width: 95%;
+      min-width: 95%;
+      font-size: 20px;
+  }
+  textarea {
+    width: 95%;
+    padding: 5px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    min-height: 30px;
+    max-width: 95%;
+    min-width: 95%;
+    height: 60px;
+    font-size: 20px;
+  }
+  
+  .CloseBtn {
+    background-color: $secondary_color;
+    color: #ffffff;
+    border: none;
+    padding: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .submit{
+    font-size: 25px;
+    width: 200px;
+    background-color: $primary_color;
+  }
+  select{
+    height: 30px;
+    border-radius: 5px;
+    color: white;
+    background-color: $secondary_color;
+    border-color: $primary_color;
+    padding: 5px;
+  }
+  .colorLabel{
+    display: inline-block;
+    margin-bottom: 5px;
+    font-size: 25px;
+    margin-right: 10px;
+  }
+
+}
+
+@media screen {
+    
+}

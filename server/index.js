@@ -20,7 +20,54 @@ app.post('/todos', async(req, res) => {
         console.error(err.message);
     }
 });
+// Get all ToDos
+app.get('/todos', async(req, res) => {
+    try {
+        const allTodos = await pool.query('SELECT * FROM todos');
+        res.json(allTodos.rows);
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+// Get a ToDo
+app.get('/todos/:id', async(req, res) => {
+    try {
+        const { id } = req.params;
+        const todo = await pool.query('SELECT * FROM todos WHERE id = $1', [id]);
 
+        if (!todo.rows.length) {
+            return res.status(404).json({ error: 'Todo not found' });
+        }
+
+        res.json(todo.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+// UPDATE a ToDo
+app.put('/todos', async(req,res) => {
+    try{
+        const {id} = req.params;
+        const {title, description} = req.body;
+        const upadateTodo = await pool.query("UPDATE todos SET title = $1 AND description = $2 WHERE id = $3",[title, description, id]
+        );
+        res.json("ToDo was updated");
+    } catch (err) {
+        console.log(err.message);
+    }
+});
+
+// DELETE a ToDo
+app.delete('/todos', async(req, res) => {
+    try {
+        const { id } = req.params;
+        const deleteTodo = await pool.query('DELETE FROM todos WHERE id = $1', [id]);
+
+        res.json("ToDo was deleted");
+    } catch (err) {
+        console.error(err.message);
+    }
+});
 
 
 
