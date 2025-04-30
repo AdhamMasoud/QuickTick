@@ -17,11 +17,10 @@ function Header() {
   return (
     <div className="Header">
       <h1>QuickTick</h1>
-      {showModal && <NewTodo closeModal={closeModal} />}
       <button onClick={openModal}>
         <FontAwesomeIcon icon={faPlus} />
       </button>
-
+      {showModal && <NewTodo closeModal={closeModal} />}
     </div>
   );
 }

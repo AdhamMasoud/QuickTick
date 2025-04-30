@@ -7,7 +7,7 @@ function Home() {
       <div className="Home">
         <Header/>
         <Card/>
-        <Card/>
+
       </div>
     );
   }

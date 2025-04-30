@@ -2,7 +2,10 @@
   "name": "aodo",
   "version": "1.0.0",
   "main": "index.js",
+
   "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "AM",
@@ -10,6 +13,7 @@
   "description": "",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
     "express": "^4.21.2",
     "pg": "^8.14.1"
   }
