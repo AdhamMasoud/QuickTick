@@ -1,6 +1,9 @@
 node_modules
-client/node_modules
-server/node_modules
+client/build
+backup.tar
 .git
 .gitignore
-backup.tar
+*.log
+.env
+.DS_Store
+Thumbs.db
