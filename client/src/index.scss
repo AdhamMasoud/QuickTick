@@ -72,14 +72,18 @@ $font_family: "Rubik", sans-serif !default;
     h2{
         display: inline;
         margin-top: 10px;
-        margin-left: 15px;
+        margin-left: 10px;
+        margin-right: 10px;
         position: absolute;
+        word-break: break-word;
+        white-space: pre-wrap;
     }
     p{
         margin-top: 40px;
-        margin-left: 15px;
-        display: block;
+        margin-left: 10px;
+        display: inline;
         position: absolute;
+
     }
     div{
         display: inline;
@@ -97,13 +101,100 @@ $font_family: "Rubik", sans-serif !default;
         font-size: 20px;
         margin-left: 5px;
         display: none;
+        gap: 5px;
         cursor: pointer;
         &:hover {
           background-color: darken(white, 10%);
           transition: background-color 0.5s ease;
+      }
+    }
+    .CompBox{
+        display: inline-block;
+        align-items: center;
+        justify-content: center;
+        margin-left: 15px;
+        width: 50px;
+        height: 80%;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+    }
+    .Line{
+      position: absolute;
+        width: 5px;
+        height: 100%;
+        background-color: black;
+        left: 85px;
+        margin-top: 0;
+
+    }
+    .card-row {
+      display: flex;
+      align-items: center;
+      gap: 8px; // Adjust spacing as needed
+    }
+
+      .rounded-checkbox {
+    display: none; /* hide the default checkbox */
+  }
+
+  .custom-checkbox {
+    width: 70px;
+    height: 80%;
+    display: inline-block;
+    border: 2px solid #000000;
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-top: 7px;
+    margin-right: 5px;
+  }
+
+  .rounded-checkbox:checked + .custom-checkbox::after {
+    content: '';
+    width: 90%;
+    height: 90%;
+    background: #000000;
+    position: absolute;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  
+}
+.Card.checked {
+  background-color: #e0e0e0 !important; // or any gray you like
+}
+.Card.daily{
+    background-color: $secondary_color; 
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 5px 5px rgb(255, 255, 255);
+        button{
+        color: rgb(0, 0, 0);
+        font-family: $font_family;
+        margin-top: 10px;
+        background-color: $secondary_color;
+        border-radius: 3px;
+        border: 0px;
+        font-size: 20px;
+        margin-left: 5px;
+        display: none;
+        cursor: pointer;
+        &:hover {
+          background-color: darken(white, 20%);
+          transition: background-color 0.5s ease;
     }
   }
 }
+.Card.daily:hover {
+        box-shadow: none;
+        transform: translate(5px, 5px);
+        button{
+            display: block;
+        }}
 .CardContainer{
     display: grid;
     grid-template-columns:repeat(3, 1fr);
@@ -111,7 +202,31 @@ $font_family: "Rubik", sans-serif !default;
     margin-right: auto;
     gap: 20px;
     width: 80%;
+    p{
+      color: rgb(87, 87, 87);
+      white-space: pre-wrap; /* Preserve whitespace and wrap text */
+      word-wrap: break-word; /* Break long words if necessary */
+      overflow: auto; 
+      overflow-wrap: break-word; /* Ensure long words break */
+      resize: none; /* Prevent resizing if needed */
+      word-break: break-word;
+      margin-right: 30px;
+  }
+  .noTodos{
+    font-size: 30px;
+    color: $secondary_color;
+    font-family: $font_family;
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    text-align: center; /* Center text alignment */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); /* Center the element */
+    position: absolute; /* Position it absolutely */
 }
+}
+
 .NewTodo {
     position: fixed;
     top: 50%;
@@ -176,6 +291,7 @@ $font_family: "Rubik", sans-serif !default;
     border: none;
     padding: 3px;
     border-radius: 3px;
+    padding-bottom: 7px;
     cursor: pointer;
   }
   .submit{
@@ -203,6 +319,19 @@ $font_family: "Rubik", sans-serif !default;
     font-size: 25px;
     margin-right: 10px;
   }
+.dailyLabel {
+    display: flex; /* Use flexbox for horizontal alignment */
+    align-items: center; /* Vertically align the label and input */
+    gap: 10px; /* Add spacing between the label and input */
+    input{
+      width: 20px;
+      height: 20px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+}
 
 }
 
@@ -262,13 +391,19 @@ $font_family: "Rubik", sans-serif !default;
     height: 70px;
     font-size: 20px;
   }
-
+  .dailyLabel {
+    display: flex; /* Use flexbox for horizontal alignment */
+    align-items: center; /* Vertically align the label and input */
+    gap: 10px; /* Add spacing between the label and input */
+}
 
   .CloseBtn {
     background-color: $secondary_color;
     color: #ffffff;
     border: none;
     padding: 3px;
+    padding-left: 9px;
+    padding-right: 9px;
     font-size: 40px;
     margin-right: 15px;
     margin-top: 15px;
@@ -311,69 +446,218 @@ $font_family: "Rubik", sans-serif !default;
 
 }
   .Auth{
-    position: fixed;
-    right: 0;
-    top: 50%;
-    height: 100%;
-    transform: translate(-50%, -50%);
-    background-color: $secondary_color;
-    padding-right: 20px;
-    padding-left: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-radius: 20px;
-    width: 400px;
-    z-index: 1000;
-    font-family: $font_family;
-    box-shadow: 5px 5px white;
-    .modal-header-auth{
-      align-items: center;
-      margin-top: 70%;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 0;
+    position: relative;
+    
+    .left-content {
+      flex: 1;
+      padding-right: 2rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-right: 50px;
+      
+      .webTitle{
+        font-size: 60px;
+        margin-bottom: 10px;
+        margin-left: 10%;
+        font-family: $font_family;
+        transition: all 0.3s ease;
+        text-align: center;
+      }
+      
+      .Intro{
+        font-size: 30px;
+        margin-bottom: 10px;
+        margin-left: 10%;
+        font-family: $font_family;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        overflow: auto; 
+        overflow-wrap: break-word;
+        resize: none;
+        word-break: break-word;
+        transition: all 0.3s ease;
+      }
+      
     }
+
+    .modal-header-auth{
+      position: relative;
+      top: 50%;
+      right: 5%;
+      transform: translateY(-50%);
+      background-color: $secondary_color;
+      padding: 2rem;
+      border-radius: 20px;
+      height: 80%;
+      max-width: 400px;
+      font-family: $font_family;
+      box-shadow: 5px 5px white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width:  100%;
+      margin-left: 20px;
+    }
+
     input{
       display: block;
-      width: 95%;
-      padding: 5px;
+      width: 100%;
+      padding: 1rem;
       border-radius: 10px;
       border: 1px solid #ccc;
-      min-height: 30px;
-      max-width: 95%;
-      min-width: 95%;
-      font-size: 20px;
-      margin-bottom: 10px;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
 
+      &:focus {
+        outline: none;
+        border-color: $primary_color;
+      }
     }
-    h2{
-      font-size: 30px;
-      margin-bottom: 20px;
-      
-  
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
     }
+
     .submit{
-      font-size: 25px;
-      width: 200px;
+      font-size: 1.2rem;
+      width: 100%;
+      max-width: 200px;
       border-radius: 10px;
       background-color: $primary_color;
       box-shadow: 5px 5px white;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
       color: white;
-      padding-top: 10px;
-      padding-bottom: 10px;
+      padding: 1rem;
       border: none;
-      margin-top: 10px;
+      margin: 1rem auto;
+      display: block;
       cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
       &:hover {
         box-shadow: none;
         transform: translate(5px, 5px);
-    }}
-    p{
-      font-size: 20px;
-      margin-top: 40px;
-      margin-bottom: 10px;
+      }
     }
 
+    p {
+      font-size: 1rem;
+      margin-top: 1.5rem;
+      text-align: center;
+      
+      a {
+        color: $primary_color;
+        cursor: pointer;
+        text-decoration: underline;
+        font-weight: bold;
+        margin-left: 0.5rem;
+        
+        &:hover {
+          color: darken($primary_color, 10%);
+        }
+      }
+    }
+
+    .error-message {
+      color: #ff3333;
+      margin-bottom: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
   }
 
+  @media (max-width: 480px) {
+    .Auth {
+      width: 95%;
+      padding: 1.5rem;
+      min-height: 350px;
+      h2 {
+        font-size: 1.75rem;
+      }
+
+      input {
+        padding: 0.8rem;
+        font-size: 0.95rem;
+      }
+
+      .submit {
+        font-size: 1.1rem;
+        padding: 0.8rem;
+      }
+
+      p {
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  @media (max-width: 320px) {
+    .Auth {
+      padding: 1rem;
+      min-height: 300px;
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      input {
+        padding: 0.7rem;
+        font-size: 0.9rem;
+      }
+
+      .submit {
+        font-size: 1rem;
+        padding: 0.7rem;
+      }
+    }
+  }
+
+  @media (max-height: 600px) {
+    .Auth {
+      position: relative;
+      top: 0;
+      transform: translateX(-50%);
+      margin: 2rem 0;
+      .modal-header-auth{
+        width: 90%;
+      }
+    }
+  }
+
+@media (max-width: 1800px) {
+        .CardContainer{
+        grid-template-columns: repeat(2, 1fr);
+    }
+  
+
+}
+@media (max-width: 1260px) {
+    .Card{
+        width: 100%;
+        height: 120px;
+    p{
+      margin-top: 60px;
+
+    }
+      .custom-checkbox {
+    margin-top: 10px;
+
+  }
+    }
+
+}
 
 @media (max-width: 1030px) {
     .CardContainer{
@@ -382,11 +666,8 @@ $font_family: "Rubik", sans-serif !default;
     .Header{
         width: 90%;
     }
-    .Card{
-        width: 100%;
-    }
 }
-@media (max-width: 700px) {
+@media (max-width: 800px) {
     .CardContainer{
         grid-template-columns: repeat(1, 1fr);
     }
@@ -403,10 +684,81 @@ $font_family: "Rubik", sans-serif !default;
       width: 60%;
   }
 }
-@media (max-width: 800px) {
-
+@media (max-width: 475px) {
+    .Card{
+      height: 140px;
+    }
 }
-
+@media (max-width: 900px) {
+  .Auth{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        
+      .left-content {
+        padding: 0;
+        height: auto;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        
+        .webTitle{
+          font-size: 40px;
+          margin-bottom: 10px;
+          margin-left: 0;
+          text-align: center;
+        }
+        
+        .Intro{
+          font-size: 20px;
+          margin-bottom: 10px;
+          margin-left: 0;
+          text-align: center;
+          max-width: 90%;
+        }
+      }
+      
+      .modal-header-auth{
+        position: relative;
+        top: 0;
+        right: 0;
+        transform: none;
+        flex: 0 0 auto;
+        height: auto;
+        max-width: 90%;
+        width: 50%;
+        padding: 2rem;
+        margin: 2rem auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      input{
+        width: 100%;
+        margin: 0.5rem 0;
+      }
+      
+      .submit{
+        width: 100%;
+        margin: 1rem 0;
+      }
+      
+      p {
+        font-size: 0.9rem;
+        text-align: center;
+      }
+  }
+}
 
 
   

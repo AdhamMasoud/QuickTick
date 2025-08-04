@@ -1,5 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
-
+import React, { createContext, useState, useEffect } from 'react'; 
 // Create a Context for the Todo data
 // This will allow us to share the Todo data across components without prop drilling
 export const TodoContext = createContext();
@@ -48,6 +47,7 @@ export const TodoProvider = ({ children }) => {
       const addTodo = async (newTodo) => {
         const token = localStorage.getItem('authToken');
         const userId = localStorage.getItem('userId');
+
         try {
             const response = await fetch('http://localhost:5000/todos/new', {
             // This is the URL of the server endpoint that will handle adding a new Todo
@@ -73,9 +73,9 @@ export const TodoProvider = ({ children }) => {
         }
       };
 
-      const delTodo = async (id, user_id) => {
+      const delTodo = async (id) => {
         const token = localStorage.getItem('authToken');
-        const userId = localStorage.getItem('userId');
+
         try{
           if (!token) {
             console.log('Authentication token is missing.');
@@ -90,14 +90,13 @@ export const TodoProvider = ({ children }) => {
               // Include the token in the Authorization header
               'Authorization': `Bearer ${token}`,
             }, 
-            body: JSON.stringify({ id, userId }), // Include the userId in the request body
+            body: JSON.stringify({ id}), // Include the userId in the request body
           });
           if (response.ok) {
             console.log('Todo deleted successfully');
             getTodos(); // Refresh the todos after deleting one
           } 
           }catch (err) {
-            console.log('Deleting Todo:', { id, user_id });
             console.error(err.message);
           }
         };
@@ -108,6 +107,7 @@ export const TodoProvider = ({ children }) => {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
+              'authorization': `Bearer ${localStorage.getItem('authToken')}`, // Include the token in the Authorization header
             },
             body: JSON.stringify(updatedTodo),
           });
@@ -143,9 +143,30 @@ export const TodoProvider = ({ children }) => {
         }
       };
 
+      const userSignup = async (user) => {
+        try {
+          const response = await fetch('http://localhost:5000/auth/register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user),
+          });
+          if (!response.ok) {
+            const error = await response.json();
+            return { success: false, error: error.error };
+          }
+          
+          const data = await response.json();
+          return { success: true, data };
+        } catch (err) {
+          console.error(err.message);
+          return { success: false, error: 'Server error' };
+        }
+      };
     
       return (
-        <TodoContext.Provider value={{ todos, addTodo, delTodo, editTodo, userLogin }}>
+        <TodoContext.Provider value={{ todos, addTodo, delTodo, editTodo, userLogin, userSignup, getTodos }}>
           {children}
         </TodoContext.Provider>
       );

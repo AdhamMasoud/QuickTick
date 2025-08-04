@@ -1,10 +1,11 @@
 import express from 'express';
 // To database connection
-import pool from './db.js'
+import pool from './db.js';
 // bcrypt for password hashing
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 // jsonwebtoken for token generation
 import jwt from 'jsonwebtoken';
+import { supabase } from './supabase.js'; // Import supabase client if needed
 
 const router = express.Router();
 
@@ -46,9 +47,45 @@ router.post('/register', async (req, res) => {
 // Login a user
 router.post('/login', async (req, res) => {
     try {
-        const {username, password} = req.body;
-        const user = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
+        const { username, password } = req.body;
 
+        // Check if username exists
+        const user = await pool.query(
+            "SELECT * FROM users WHERE username = $1",
+            [username]
+        );
+
+        if (user.rows.length === 0) {
+            return res.status(401).json({ error: 'User not found' });
+        }
+
+        // Verify password
+        const validPassword = bcrypt.compareSync(password, user.rows[0].password);
+        if (!validPassword) {
+            return res.status(401).json({ error: 'Invalid password' });
+        }
+
+        // Generate JWT token
+        const token = jwt.sign(
+            { id: user.rows[0].id }, 
+            process.env.JWT_SECRET, 
+            { expiresIn: '24h' }
+        );
+
+        res.json({
+            success: true,
+            token: token,
+            user: {
+                id: user.rows[0].id,
+                username: user.rows[0].username
+            }
+        });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+/*
         if (user.rows.length === 0) {
             return res.status(401).json({ error: 'User not found' });
         }
@@ -71,4 +108,5 @@ router.post('/login', async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 });
+*/
 export default router;

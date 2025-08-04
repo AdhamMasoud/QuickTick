@@ -1,7 +1,6 @@
 import express from 'express'
 import cors from 'cors';
 // To database connection
-import pool from'./db.js';
 // To serve static files (like HTML, CSS, JS) from the build directory
 import path from 'path';
 // To read .env files
@@ -27,7 +26,7 @@ app.use(express.json());
 // To use CORS (Cross-Origin Resource Sharing) to allow requests from different origins
 app.use(cors());
 // Serve static files from the "build" directory
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 //API routes
 app.use('/todos',authMiddleware,TodosRoutes)

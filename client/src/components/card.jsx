@@ -9,10 +9,19 @@ function Card() {
   const [isEditing, setIsEditing] = useState(false);
   const [currentTodo, setCurrentTodo] = useState(null);
   const [error, setError] = useState('');
-  const colors = ['White', 'Red', 'Green', 'Blue', 'Yellow', 'Purple'];
-  
+  const [completed, setCompleted] = useState({});
+    useEffect(() => {
+  if (Array.isArray(todos)) {
+    const initialCompleted = {};
+    todos.forEach(todo => {
+      initialCompleted[todo.id] = !!todo.completed;
+    });
+    setCompleted(initialCompleted);
+  }
+}, [todos]);
+    
     const openEdit= (todo) => {
-      setCurrentTodo(todo) // Set the todo to be edited
+      setCurrentTodo({ ...todo, daily: todo.daily ?? false }) // Set the todo to be edited
       setIsEditing(true); // Open the popup
     };
 
@@ -29,25 +38,67 @@ function Card() {
         setError('Please enter a title');// Alert if title is empty
         return;}
 
-      editTodo(currentTodo.id, currentTodo); // Call editTodo with updated data
+          const updatedTodo = {
+          ...currentTodo,
+          daily: currentTodo.daily ?? false,
+          completed: !!completed[currentTodo.id] // Default to false if undefined
+          };
+
+      editTodo(currentTodo.id, updatedTodo); // Call editTodo with updated data
       closeEdit(); // Close the popup after editing
     };
 
     const handleInputChange = (e) => {
-      const { name, value } = e.target;
-      setCurrentTodo({ ...currentTodo, [name]: value }); // Update the current todo state
+      const { name, value, type, checked  } = e.target;
+      setCurrentTodo({
+        ...currentTodo,
+        [name]: type === 'checkbox' ? checked : value,
+      });
     };
+  const handleCardCheckbox = (id) => {
+    setCompleted(prev => {
+      const newCompleted = {
+        ...prev,
+        [id]: !prev[id]
+      };
 
+      // Find the todo being updated
+      const todoToUpdate = todos.find(todo => todo.id === id);
+      if (todoToUpdate) {
+        // Call editTodo with updated completed status
+        editTodo(id, {
+          ...todoToUpdate,
+          completed: !prev[id], // new value after toggle
+          daily: todoToUpdate.daily ?? false // ensure daily is set
+        });
+      }
+
+      return newCompleted;
+    });
+  };
     return (
+      
       <div className='CardContainer'>
-      {(Array.isArray(todos) ? todos : []).map((todo) => (
-        <div key={todo.id} className="Card">
+      {todos.length === 0 ? (
+      <p className="noTodos">No Todos</p>) : (
+      Array.isArray(todos) ? todos : []).map((todo) => (
+        <div key={todo.id} className={`Card${todo.daily ? ' daily' : ''}${completed[todo.id] ? ' checked' : ''}`}>
+          <label>
+            <input
+              type="checkbox"
+              className="rounded-checkbox"
+              checked={!!completed[todo.id]}
+              onChange={() => handleCardCheckbox(todo.id)}
+            />
+            <span className="custom-checkbox"></span>
+          </label>
+          <div className='Line'></div>
           <h2>{todo.title}</h2>
           <div>
             <button onClick={() => openEdit(todo)}>
               <FontAwesomeIcon icon={faEdit} />
             </button>
-            <button onClick={() => delTodo(todo.id , todo.user_id = localStorage.getItem('userId'))}>
+            <button onClick={() => delTodo(todo.id)}>
               <FontAwesomeIcon icon={faTrash} />
             </button>
           </div>
@@ -69,6 +120,7 @@ function Card() {
                     type="text"
                     id="title"
                     name="title"
+                    maxLength="24"
                     value={currentTodo.title}
                     onChange={handleInputChange}
                   />
@@ -79,25 +131,23 @@ function Card() {
                   <textarea
                     id="description"
                     name="description"
+                    maxLength="60"
                     value={currentTodo.description}
                     onChange={handleInputChange}
                   />
                 </div>
                 <div className="form-group">
-            <label className='colorLabel' htmlFor="color">Color</label>
-            <select
-              id="color"
-              name="color" 
-              value={currentTodo.color || 'White'}
-              onChange={handleInputChange}
-            >
-              {colors.map((color) => (
-                <option key={color} value={color}>
-                  {color}
-                </option>
-              ))}
-            </select>
-          </div>
+                <div className='dailyLabel'>
+                  <label htmlFor="daily" style={{display : 'inline-block'}}>Daily</label>
+                    <input
+                      type="checkbox"
+                      id="daily"
+                      name="daily"
+                      checked={currentTodo.daily || false}
+                      onChange={handleInputChange}
+                    />
+                </div>
+              </div>
                 <button className="submit" type="submit">
                   Edit Todo
                 </button>

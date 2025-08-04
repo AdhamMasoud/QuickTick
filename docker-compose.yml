@@ -1,0 +1,36 @@
+
+services:
+  server:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASS=AMPSXsql2
+      - DB_NAME=aodo
+      - DB_PORT=5432
+      - JWT_SECRET=jwt_secret
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=AMPSXsql2
+      - POSTGRES_DB=aodo
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./backup.tar:/backup/backup.tar
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d aodo"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db_data:
