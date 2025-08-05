@@ -63,6 +63,5 @@ Your tasks are saved in a cloud database, ensuring your progress is synced acros
 
 - PostgesSQL
 
----
 
 
