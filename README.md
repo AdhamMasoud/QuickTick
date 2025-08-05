@@ -16,6 +16,8 @@ Type your task into the input field and click Add.
 ✅ Mark Tasks as Complete
 Click on a task to mark it as completed. It will get a strike-through style.
 
+🖊️ Edit Tasks
+Click the edit icon or double-click a task to modify its text.
 
 🗑️ Delete Tasks
 Click the trash icon next to a task to delete it from the list.
